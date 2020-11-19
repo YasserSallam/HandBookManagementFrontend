@@ -1,0 +1,12 @@
+.mainForm{
+    background-color: lightgray;
+}
+.btn-attach {
+    width: 27.7%;
+    height: 38px;
+    font-size: 1rem;
+  }
+  .btnCreate{
+      border-radius: 30%;
+      width: 150px;
+  }

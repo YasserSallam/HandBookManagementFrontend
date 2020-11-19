@@ -1,0 +1,63 @@
+<div class="mainForm">
+<form [formGroup]="handBookForm" (ngSubmit)="Create()" >
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <span>Title </span><span class="text-danger">*</span>
+                <input type="text" class="form-control" formControlName="title">
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="form-group">
+                <span>Country </span><span class="text-danger">*</span>
+                <select class="form-control form-control-lg custom-form-control-option" placeholder="Select Country"
+                formControlName="countryId"
+                >
+                    <option></option>
+                    <option *ngFor="let country of countries" [ngValue]="country.id">
+                        {{ country.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <span>Guide Date </span><span class="text-danger">*</span>
+                <input type="date" formControlName="guideDate" class="form-control"  formControlName="guideDate">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <span>Guide Info </span><span class="text-danger">*</span>
+                <textarea  formControlName="guideInfo" class="form-control"> </textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+            <span> Image</span><span class="text-danger">*</span>
+            <input type="file" (change)="uploadFile($event)" hidden #file/>   
+            <input type="text" class="form-control" (click)="file.click()" placeholder="select file" />
+            <img [src]="selectedImageUrl" height="100px" width="100px" *ngIf="imageUploaded"/>
+              </div>
+        </div>
+              <div class="col-6">
+                    <div class="form-group">
+
+                    </div>
+              </div>
+        </div>
+<div class="row text-center ">
+    <div class="col-12 ">
+            <input type="submit" value="Create" class="btn btn-primary btnCreate" />
+        </div>
+</div>
+</form>
+</div>
