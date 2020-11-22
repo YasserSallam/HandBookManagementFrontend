@@ -1,0 +1,17 @@
+{
+    "hello":"مرحبا",
+    "Attachments":"مرفقات",
+    "maxNumberOfFilesIs5":"اقصي عدد مسموح به من المرفقات هو 5",
+    "Title":"العنوان",
+    "Country":"الدوله",
+    "GuideDate":"تاريخ الدليل",
+    "GuideInfo":"بيانات الدليل",
+    "Image":"الصوره",
+    "Create":"انشاء",
+    "Pending":"تحت الطلب",
+    "Approved":"مقبوله",
+    "Rejected":"مرفوضه",
+    "Save":"حفــظ",
+    "NonNumericTextOnly":"كلمات فقط بدون ارقام",
+    "PerviousDatesNotAllowed":"غير مسموح بالتواريخ السابقه"
+}

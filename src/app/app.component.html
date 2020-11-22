@@ -2,6 +2,8 @@
 <div class="container-fluid">
     <br />
     <br />
+    <a href="" *ngIf="currentLang == 'en'" (click)="changeLang($event)" class="float-right">عربي</a> 
+    <a href="" *ngIf=" currentLang == 'ar'" (click)="changeLang($event)" class="float-right">English</a>
     <br />
     <router-outlet></router-outlet>
 

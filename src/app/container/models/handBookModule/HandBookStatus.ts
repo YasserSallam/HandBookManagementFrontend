@@ -1,4 +1,4 @@
-import { StatusEnum } from '../enums/statusEnum';
+import { StatusEnum } from '../../enums/statusEnum';
 
 export class HandBookStatus{
 

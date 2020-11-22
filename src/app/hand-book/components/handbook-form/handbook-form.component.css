@@ -10,3 +10,12 @@
       border-radius: 30%;
       width: 150px;
   }
+  .btn-attach {
+    width: 27.7%;
+    height: 38px;
+    font-size: 1rem;
+  }
+
+  .remove{
+      display: inline;
+  }

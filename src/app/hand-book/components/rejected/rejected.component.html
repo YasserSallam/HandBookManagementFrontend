@@ -1,0 +1,39 @@
+<div>
+    <table class="table-active">
+        <tr class="">
+            <th>Title</th>
+            <th>Info</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let handbook of handbooks"> 
+            <td>{{handbook.title}} </td>
+            <td>{{handbook.guideInfo}} </td>
+            <td>{{handbook.guideDate}} </td>
+            <td><a href="" (click)="view($event,handbook.id)">{{'Details' | translate}} </a></td>
+            <td><a href="" (click)="edit($event,handbook.id)" *ngIf="user=='user'">{{'Edit' | translate}} </a></td>
+
+        </tr>
+      
+    </table>
+</div>
+
+
+<div>
+<ngb-pagination
+class="d-flex justify-content-center"
+[maxSize]="3"
+[rotate]="true"
+[collectionSize]="2"
+[pageSize]="2"
+[(page)]="currentPage"
+(pageChange)="changePage($event)"
+>
+<ng-template ngbPaginationFirst>First</ng-template>
+<ng-template ngbPaginationLast>Last</ng-template>
+<ng-template ngbPaginationPrevious> < </ng-template>
+<ng-template ngbPaginationNext> > </ng-template>
+<ng-template ngbPaginationEllipsis>...</ng-template>
+<ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+</ngb-pagination>
+</div>

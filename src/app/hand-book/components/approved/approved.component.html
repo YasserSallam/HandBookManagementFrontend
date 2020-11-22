@@ -1,0 +1,75 @@
+<div>
+    <form [formGroup]="searchForm" (ngSubmit)="Search()">
+        <div class="row">
+                <div class="form-group">
+                    <span>{{'Country'|translate}} </span>
+                    <select class="form-control form-control-lg custom-form-control-option" placeholder="Select Country"
+                        formControlName="countryId">
+                        <option></option>
+                        <option *ngFor="let country of countries" [ngValue]="country.id">
+                            {{ country.name }}
+                        </option>
+                    </select>
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <div class="form-group">
+                        <span> {{'FromDate' | translate}} </span>
+                        <input type="date" formControlName="guideDate" class="form-control" formControlName="fromDate">
+                    </div>
+                </div>
+                &nbsp;
+
+                <div class="form-group">
+                    <div class="form-group">
+                        <span> {{'ToDate' | translate}} </span>
+                        <input type="date" formControlName="guideDate" class="form-control" formControlName="toDate">
+                    </div>
+                </div>
+                &nbsp;
+                <div class="form-gr form-group">
+                    <span> {{'Title'| translate}} </span>
+                    <input type="text" class="form-control" formControlName="title">
+                </div>
+            
+        </div>
+        <div>
+            <input type="submit" value="Search" class=" btn btn-primary">
+        </div>
+    </form>
+</div>
+<br />
+<br />
+<br />
+
+<div>
+    <table class="table-active">
+        <tr class="">
+            <th>Title</th>
+            <th>Info</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let handbook of handbooks">
+            <td>{{handbook.title}} </td>
+            <td>{{handbook.guideInfo}} </td>
+            <td>{{handbook.guideDate}} </td>
+            <td><a href="" (click)="view($event,handbook.id)">{{'Details' | translate}} </a></td>
+        </tr>
+
+    </table>
+</div>
+
+
+<div>
+    <ngb-pagination class="d-flex justify-content-center" [maxSize]="3" [rotate]="true" [collectionSize]="2"
+        [pageSize]="2" [(page)]="currentPage" (pageChange)="changePage($event)">
+        <ng-template ngbPaginationFirst>First</ng-template>
+        <ng-template ngbPaginationLast>Last</ng-template>
+        <ng-template ngbPaginationPrevious>
+            < </ng-template>
+                <ng-template ngbPaginationNext> > </ng-template>
+                <ng-template ngbPaginationEllipsis>...</ng-template>
+                <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+    </ngb-pagination>
+</div>

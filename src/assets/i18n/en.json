@@ -1,0 +1,18 @@
+{
+    "hello":"hello",
+    "Attachments":"Attachments",
+    "maxNumberOfFilesIs5":"max number of file is 5",
+    "Title":"Title",
+    "Country":"Country",
+    "GuideDate":"Guide Date",
+    "GuideInfo":"Guide Info",
+    "Image":"Image",
+    "Create":"Create",
+    "Pending":"Pending",
+    "Approved":"Approved",
+    "Rejected":"Rejected",
+    "Save":"Save",
+    "NonNumericTextOnly":"Non Numeric Text Only",
+    "PerviousDatesNotAllowed":"Pervious Dates Not Allowed"
+
+}

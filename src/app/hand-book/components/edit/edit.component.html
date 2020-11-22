@@ -1,13 +1,12 @@
+
+
 <div class="mainForm">
-    <form [formGroup]="handBookForm" (ngSubmit)="Create()">
+    <form [formGroup]="handBookForm" (ngSubmit)="Save()">
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
                     <span> {{'Title'| translate}} </span><span class="text-danger">*</span>
                     <input type="text" class="form-control" formControlName="title">
-                    <small class="text-danger" [class.d-none]="handBookForm.get('title').untouched || handBookForm.get('title').valid ">
-                        {{'NonNumericTextOnly' | translate}}</small>
-                    
                 </div>
             </div>
 
@@ -15,7 +14,7 @@
                 <div class="form-group">
                     <span>{{'Country'|translate}} </span><span class="text-danger">*</span>
                     <select class="form-control form-control-lg custom-form-control-option" placeholder="Select Country"
-                        formControlName="countryId">
+                        formControlName="countryId" >
                         <option></option>
                         <option *ngFor="let country of countries" [ngValue]="country.id">
                             {{ country.name }}
@@ -29,10 +28,7 @@
             <div class="col-6">
                 <div class="form-group">
                     <span> {{'GuideDate' | translate}} </span><span class="text-danger">*</span>
-                    <input type="date" formControlName="guideDate" class="form-control" 
-                    formControlName="guideDate" min="today">
-                    <small class="text-danger" [class.d-none]="handBookForm.get('guideDate').untouched || handBookForm.get('guideDate').valid ">
-                         {{'PerviousDatesNotAllowed' | translate}}</small>
+                    <input type="date" formControlName="guideDate" class="form-control" formControlName="guideDate">
                 </div>
             </div>
             <div class="col-6">
@@ -48,8 +44,7 @@
             <div class="col-6">
                 <div class="form-group">
                     <span> {{'Image' | translate}}</span><span class="text-danger">*</span>
-                    <input type="file" (change)="uploadImage($event)" #file class="form-control" 
-                    accept=".jpg,.jpeg,.png"/>
+                    <input type="file" (change)="uploadImage($event)" #file class="form-control" />
                     <!-- <input type="text" class="form-control" (click)="file.click()" placeholder="select file" /> -->
                     <img [src]="selectedImageUrl" height="100px" width="100px" *ngIf="imageUploaded" />
                 </div>
@@ -58,7 +53,7 @@
                 <div class="form-group">
                     <span> {{'Attachments' | translate}}</span><span class="text-danger">*</span> <br />
                     <input type="file" (change)="uploadFiles(attachmentfile.files)" hidden multiple #attachmentfile
-                        class="form-control" accept=".docx,.doc,.pdf"/>
+                        class="form-control" />
                     <button class="btn-attach" (click)="attachmentfile.click();fileExcessed=false">Attach</button>
                     <small class="text-danger" *ngIf="fileExcessed">{{'maxNumberOfFilesIs5' | translate}} </small>
                     <!-- begin of div -->
@@ -84,11 +79,8 @@
         </div>
         <div class="row text-center ">
             <div class="col-12 ">
-                <input type="submit" value="Create" class="btn btn-primary btnCreate" [disabled]="handBookForm.invalid"/>
+                <input type="submit" value="{{'Save' | translate}}" class="btn btn-primary btnCreate" />
             </div>
         </div>
     </form>
-</div>
-<div>
-    {{handBookForm.errors | json}}
 </div>
