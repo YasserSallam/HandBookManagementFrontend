@@ -1,5 +1,5 @@
 
 <input type="button" class="btn btn-primary" value="{{'Create' | translate}}"  *ngIf="user == 'user'" [routerLink]="['create']" />
-<input type="button" class="btn btn-warning" value="{{'Pending' | translate}}"  [routerLink]="['pending']"/>
+<input type="button" class="btn btn-warning" value="{{'Pending' | translate}}"  [routerLink]="['list','pending']"/>
 <input type="button" class="btn btn-success" value="{{'Approved' | translate}}" [routerLink]="['approved']" />
-<input type="button" class="btn btn-danger" value="{{'Rejected' | translate}}" [routerLink]="['rejected']" />
+<input type="button" class="btn btn-danger" value="{{'Rejected' | translate}}" [routerLink]="['list','rejected']" />

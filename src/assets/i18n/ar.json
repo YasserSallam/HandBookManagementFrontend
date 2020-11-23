@@ -13,5 +13,8 @@
     "Rejected":"مرفوضه",
     "Save":"حفــظ",
     "NonNumericTextOnly":"كلمات فقط بدون ارقام",
-    "PerviousDatesNotAllowed":"غير مسموح بالتواريخ السابقه"
+    "PerviousDatesNotAllowed":"غير مسموح بالتواريخ السابقه",
+    "ToDate":"الي تاريخ",
+    "FromDate":"من تاريخ",
+    "Search":"بحــث"
 }

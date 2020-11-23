@@ -34,7 +34,7 @@
             
         </div>
         <div>
-            <input type="submit" value="Search" class=" btn btn-primary">
+            <input type="submit" value="{{'Search' | translate}}" class=" btn btn-primary">
         </div>
     </form>
 </div>
@@ -43,14 +43,14 @@
 <br />
 
 <div>
-    <table class="table-active">
-        <tr class="">
-            <th>Title</th>
-            <th>Info</th>
-            <th>Date</th>
-            <th>Action</th>
+    <table class="table">
+        <tr>
+            <th scope="col"> {{'Title' | translate }}</th>
+            <th scope="col">{{'GuideInfo' | translate }}</th>
+            <th scope="col">  {{'GuideDate' | translate }}</th>
+            <th scope="col"> {{'Action' | translate }}</th>
         </tr>
-        <tr *ngFor="let handbook of handbooks">
+        <tr *ngFor="let handbook of handbooks.data">
             <td>{{handbook.title}} </td>
             <td>{{handbook.guideInfo}} </td>
             <td>{{handbook.guideDate}} </td>
@@ -66,7 +66,7 @@
     class="d-flex justify-content-center"
     [maxSize]="3"
     [rotate]="true"
-    [collectionSize]="5"
+    [collectionSize]="handbooks.totalCount"
     [pageSize]="pageSize"
     [(page)]="currentPage"
     (pageChange)="changePage($event)"

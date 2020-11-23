@@ -24,14 +24,7 @@ export class DetailsComponent implements OnInit {
     private _router: Router) { }
 
   ngOnInit(): void {
-    this.user = localStorage.getItem('user');
     this.handbookId = this._route.snapshot.paramMap.get('id');
-
-    this.decisionForm = this._fb.group({
-      status: ['', Validators.required],
-      reason: ['']
-    })
-
   }
 
   SaveDecision() {

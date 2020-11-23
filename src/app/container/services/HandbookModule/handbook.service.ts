@@ -6,6 +6,7 @@ import { HandBookDTO } from '../../models/handBookModule/HandBookDTO';
 import { HandbookListingDTO } from '../../models/handBookModule/HandbookListingDTO';
 import { HandBookStatus } from '../../models/handBookModule/HandBookStatus';
 import { SearchDTO } from '../../models/handBookModule/SearchDTO';
+import { IPagedList } from '../../interfaces/IPagedList';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,15 @@ private url:string='backend url'
   create(handbbok:HandBookDTO){
     this._http.post(this.url,handbbok);
   }
-  get(searchDTO:SearchDTO):Observable<HandbookListingDTO[]>{
-   return this._http.post(this.url,searchDTO) as Observable<HandbookListingDTO[]>;
+  getAll(searchDTO:SearchDTO):Observable<IPagedList<HandbookListingDTO>>{
+   return this._http.post(this.url,searchDTO) as Observable<IPagedList<HandbookListingDTO>>;
   }
   updateStatus(handbook:HandBookStatus){
     return this._http.post(this.url,handbook) ;
   }
 
   getDetails(id:number):Observable<HandbookDetailsDTO>{
-    return this._http.get(this.url+'/id') as Observable<HandbookDetailsDTO> ;
+    return this._http.get(this.url+'/'+id) as Observable<HandbookDetailsDTO> ;
   }
   updateDetails(handbook:HandbookDetailsDTO){
     return this._http.post(this.url,handbook) ;

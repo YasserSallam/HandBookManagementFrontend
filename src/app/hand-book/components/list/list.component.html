@@ -1,16 +1,17 @@
 <div>
-    <table class="table-active">
-        <tr class="">
-            <th>Title</th>
-            <th>Info</th>
-            <th>Date</th>
-            <th>Action</th>
+    <table class="table">
+        <tr >
+            <th scope="col">{{'Title' | translate }}</th>
+            <th scope="col">{{'GuideInfo' | translate }}</th>
+            <th scope="col">{{'GuideDate' | translate }}</th>
+            <th scope="col">{{'Action' | translate }}</th>
         </tr>
-        <tr *ngFor="let handbook of handbooks"> 
+        <tr *ngFor="let handbook of handbooks.data"> 
             <td>{{handbook.title}} </td>
             <td>{{handbook.guideInfo}} </td>
             <td>{{handbook.guideDate}} </td>
             <td><a href="" (click)="view($event,handbook.id)">{{'Details' | translate}} </a></td>
+            <td><a href="" (click)="edit($event,handbook.id)">{{'Edit' | translate}} </a></td>
         </tr>
       
     </table>
@@ -22,7 +23,7 @@
 class="d-flex justify-content-center"
 [maxSize]="3"
 [rotate]="true"
-[collectionSize]="5"
+[collectionSize]="handbooks.totalCount"
 [pageSize]="pageSize"
 [(page)]="currentPage"
 (pageChange)="changePage($event)"

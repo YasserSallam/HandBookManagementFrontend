@@ -5,8 +5,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { EditComponent } from './components/edit/edit.component';
 import { HandbookFormComponent } from './components/handbook-form/handbook-form.component';
 import { HomeComponent } from './components/home/home.component';
-import { PendingComponent } from './components/pending/pending.component';
-import { RejectedComponent } from './components/rejected/rejected.component';
+import { ListComponent } from './components/list/list.component';
 
 const routes: Routes = [
   {
@@ -15,14 +14,12 @@ const routes: Routes = [
   {
     path:"create", component:HandbookFormComponent
   },
+ 
   {
-    path:"pending", component:PendingComponent
+    path:"list/:status", component:ListComponent
   },
   {
     path:"approved", component:ApprovedComponent
-  },
-  {
-    path:"rejected", component:RejectedComponent
   },
   {
     path:"details/:id", component:DetailsComponent

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StatusEnum } from 'src/app/container/enums/statusEnum';
+import { IPagedList } from 'src/app/container/interfaces/IPagedList';
 import { HandbookListingDTO } from 'src/app/container/models/handBookModule/HandbookListingDTO';
 import { SearchDTO } from 'src/app/container/models/handBookModule/SearchDTO';
 import { HandbookService } from 'src/app/container/services/HandbookModule/handbook.service';
@@ -19,17 +20,23 @@ export class ApprovedComponent implements OnInit {
   searchForm: FormGroup;
   currentPage: number = 1;
   searchObj:SearchDTO;
-  handbooks: HandbookListingDTO[] = [
-    { id: 1, title: 'H1', guideInfo: 'info1', guideDate: null },
-    { id: 2, title: 'H2', guideInfo: 'info2', guideDate: null },
-    { id: 3, title: 'H3', guideInfo: 'info3', guideDate: null },
-    { id: 4, title: 'H4', guideInfo: 'info4', guideDate: null },
-    { id: 5, title: 'H5', guideInfo: 'info5', guideDate: null },
-  ]
+  handbooks: IPagedList<HandbookListingDTO> ={} as IPagedList<HandbookListingDTO>;
   constructor(private _router: Router, private _fb: FormBuilder, private _sharedServ: SharedService,
     private _handbookServ:HandbookService) { }
 
   ngOnInit(): void {
+//temp
+this.handbooks.data= [
+  { id: 1, title: 'H1', guideInfo: 'info1', guideDate: null },
+  { id: 2, title: 'H2', guideInfo: 'info2', guideDate: null },
+  { id: 3, title: 'H3', guideInfo: 'info3', guideDate: null },
+  { id: 4, title: 'H4', guideInfo: 'info4', guideDate: null },
+  { id: 5, title: 'H5', guideInfo: 'info5', guideDate: null },
+]
+//
+
+
+
     this.pageSize = this._sharedServ.PageSize;
     this.searchForm = this._fb.group({
       countryId: [],
@@ -40,7 +47,7 @@ export class ApprovedComponent implements OnInit {
     })
 
     this.initSearchObj()
-    this.getApprovedHandbooks(this.searchObj);
+   // this.getApprovedHandbooks(this.searchObj);
   }
 
   initSearchObj() {
@@ -51,7 +58,7 @@ export class ApprovedComponent implements OnInit {
   }
 
   getApprovedHandbooks(search: SearchDTO) {
-    this._handbookServ.get(search).subscribe(res => {
+    this._handbookServ.getAll(search).subscribe(res => {
       this.handbooks = res
     },
       err => console.log(err))

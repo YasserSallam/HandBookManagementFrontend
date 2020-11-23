@@ -1,32 +1,3 @@
-<div *ngIf="user =='admin'">
-    <form [formGroup]="decisionForm" (ngSubmit)="SaveDecision()">
-        <div class="form-group">
-            <p>{{'Decision'}} </p>
-            <div class="form-check form-check-inline">
-            <input type="radio" value="1" id="Approved" 
-            forControlName="status" name="status" class="form-check-input">
-
-            <label class="form-check-label" for="Approved">
-                {{'Approved' | translate}}
-              </label>
-
-              <input type="radio" value="2" id="Rejected"
-              forControlName="status" name="status" class="form-check-input">
-
-            <label class="form-check-label" for="Rejected">
-                {{'Rejected' | translate}}
-              </label>
-           </div>
-        </div>
-        <div class="form-group">
-            <span>{{'Reason' | translate}}</span>
-            <textarea class="form-control" forControlName="reason"></textarea>
-        </div>
-        <div class="form-group text-center ">
-            <input type="submit" value="{{'Save' | translate}}" class="btn btn-primary">
-        </div>
-    </form>
-</div>
 
 
 <div class="row">

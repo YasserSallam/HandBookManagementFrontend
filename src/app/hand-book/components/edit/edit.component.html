@@ -1,3 +1,34 @@
+<div *ngIf="user =='admin'">
+    <form [formGroup]="decisionForm" (ngSubmit)="SaveDecision()">
+        <div class="form-group">
+            <p>{{'Decision'}} </p>
+            <div class="form-check form-check-inline">
+            <input type="radio" value="Approved" id="Approved" 
+            formControlName="status" name="status" class="form-check-input">
+
+            <label class="form-check-label" for="Approved">
+                {{'Approved' | translate}}
+              </label>
+
+              <input type="radio" value="Rejected" id="Rejected"
+              formControlName="status" name="status" class="form-check-input">
+
+            <label class="form-check-label" for="Rejected">
+                {{'Rejected' | translate}}
+              </label>
+           </div>
+        </div>
+        <div class="form-group">
+            <span>{{'Reason' | translate}}</span>
+            <textarea class="form-control" formControlName="reason"></textarea>
+        </div>
+        <div class="form-group text-center ">
+            <input type="submit" value="{{'Save' | translate}}" class="btn btn-primary" [disabled]="!decisionForm.valid">
+        </div>
+    </form>
+</div>
+
+
 
 
 <div class="mainForm">
@@ -6,14 +37,14 @@
             <div class="col-6">
                 <div class="form-group">
                     <span> {{'Title'| translate}} </span><span class="text-danger">*</span>
-                    <input type="text" class="form-control" formControlName="title">
+                    <input type="text"  [(ngModel)]="handbook.title" class="form-control" formControlName="title">
                 </div>
             </div>
 
             <div class="col-6">
                 <div class="form-group">
                     <span>{{'Country'|translate}} </span><span class="text-danger">*</span>
-                    <select class="form-control form-control-lg custom-form-control-option" placeholder="Select Country"
+                    <select  class="form-control form-control-lg custom-form-control-option" placeholder="Select Country"
                         formControlName="countryId" >
                         <option></option>
                         <option *ngFor="let country of countries" [ngValue]="country.id">
@@ -28,13 +59,13 @@
             <div class="col-6">
                 <div class="form-group">
                     <span> {{'GuideDate' | translate}} </span><span class="text-danger">*</span>
-                    <input type="date" formControlName="guideDate" class="form-control" formControlName="guideDate">
+                    <input type="date"  formControlName="guideDate" [(ngModel)]="handbook.guideDate" class="form-control" formControlName="guideDate">
                 </div>
             </div>
             <div class="col-6">
                 <div class="form-group">
                     <span>{{'GuideInfo' | translate}} </span><span class="text-danger">*</span>
-                    <textarea formControlName="guideInfo" class="form-control"> </textarea>
+                    <textarea formControlName="guideInfo"   [(ngModel)]="handbook.guideInfo" class="form-control"> </textarea>
                 </div>
             </div>
 
@@ -44,7 +75,7 @@
             <div class="col-6">
                 <div class="form-group">
                     <span> {{'Image' | translate}}</span><span class="text-danger">*</span>
-                    <input type="file" (change)="uploadImage($event)" #file class="form-control" />
+                    <input type="file"   (change)="uploadImage($event)" #file class="form-control" />
                     <!-- <input type="text" class="form-control" (click)="file.click()" placeholder="select file" /> -->
                     <img [src]="selectedImageUrl" height="100px" width="100px" *ngIf="imageUploaded" />
                 </div>
@@ -52,7 +83,7 @@
             <div class="col-6">
                 <div class="form-group">
                     <span> {{'Attachments' | translate}}</span><span class="text-danger">*</span> <br />
-                    <input type="file" (change)="uploadFiles(attachmentfile.files)" hidden multiple #attachmentfile
+                    <input type="file"  (change)="uploadFiles(attachmentfile.files)" hidden multiple #attachmentfile
                         class="form-control" />
                     <button class="btn-attach" (click)="attachmentfile.click();fileExcessed=false">Attach</button>
                     <small class="text-danger" *ngIf="fileExcessed">{{'maxNumberOfFilesIs5' | translate}} </small>
@@ -79,7 +110,7 @@
         </div>
         <div class="row text-center ">
             <div class="col-12 ">
-                <input type="submit" value="{{'Save' | translate}}" class="btn btn-primary btnCreate" />
+                <input type="submit" value="{{'Save' | translate}}" class="btn btn-primary btnCreate" *ngIf="user !='admin'" />
             </div>
         </div>
     </form>

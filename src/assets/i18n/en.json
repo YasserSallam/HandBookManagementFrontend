@@ -13,6 +13,9 @@
     "Rejected":"Rejected",
     "Save":"Save",
     "NonNumericTextOnly":"Non Numeric Text Only",
-    "PerviousDatesNotAllowed":"Pervious Dates Not Allowed"
+    "PerviousDatesNotAllowed":"Pervious Dates Not Allowed",
+    "ToDate":"To Date",
+    "FromDate":"From Date",
+    "Search":"Search"
 
 }

@@ -4,16 +4,15 @@ import { CommonModule } from '@angular/common';
 import { HandBookRoutingModule } from './hand-book-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { HandbookFormComponent } from './components/handbook-form/handbook-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { PendingComponent } from './components/pending/pending.component';
 import { ApprovedComponent } from './components/approved/approved.component';
-import { RejectedComponent } from './components/rejected/rejected.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DetailsComponent } from './components/details/details.component';
 import { EditComponent } from './components/edit/edit.component';
+import { ListComponent } from './components/list/list.component';
 
 
 export  function  HttpLoaderFactory(http:  HttpClient) {
@@ -21,13 +20,14 @@ export  function  HttpLoaderFactory(http:  HttpClient) {
 }
 
 @NgModule({
-  declarations: [HomeComponent, HandbookFormComponent, PendingComponent, ApprovedComponent, RejectedComponent, DetailsComponent, EditComponent],
+  declarations: [HomeComponent, HandbookFormComponent, ApprovedComponent, DetailsComponent, EditComponent, ListComponent],
   imports: [
     CommonModule,
     HandBookRoutingModule,
     ReactiveFormsModule,
     TranslateModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   exports:[],
   providers: [],

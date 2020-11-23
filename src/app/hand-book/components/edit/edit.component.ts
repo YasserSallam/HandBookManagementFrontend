@@ -1,7 +1,10 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Country } from 'src/app/container/models/handBookModule/Country';
 import { HandBookDTO } from 'src/app/container/models/handBookModule/HandBookDTO';
+import { HandbookService } from 'src/app/container/services/HandbookModule/handbook.service';
 
 @Component({
   selector: 'app-edit',
@@ -9,26 +12,43 @@ import { HandBookDTO } from 'src/app/container/models/handBookModule/HandBookDTO
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-  handBook: HandBookDTO;
+  handbookId: number;
+  handbook: HandBookDTO;
   handBookForm: FormGroup;
   decisionForm: FormGroup;
   countries: Country[];
   formData: FormData;
   selectedImage: File;
-  selectedFiles: File[]=[];
+  selectedFiles: File[] = [];
   selectedImageUrl = '';
   selectedImageName = '';
   imageUploaded: boolean = false;
   fileNames: string[] = [];
   baseFileUrl: string = 'assets/images/';
   fileExcessed: boolean = false;
+  user: string;
 
-  constructor(private _fb:FormBuilder) { }
+  constructor(private _fb: FormBuilder, private _handbookServ: HandbookService, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    let today: Date = new Date();
+    this.handbook = { id: 1, title: "T1", guideDate: today, countryId: 1, guideInfo: "info", attachments: null, image: null };
 
+    this.user = localStorage.getItem('user');
+
+    this.handbookId = parseInt(this._route.snapshot.paramMap.get('id'));
+
+    // this.getHandbook();
+    this.initForm();
   
-   this.handBookForm = this._fb.group({
+    if (this.user === 'admin') {
+      this.handBookForm.disable();
+
+    }
+    
+  }
+  initForm() {
+    this.handBookForm = this._fb.group({
       title: ['', [Validators.required]],
       countryId: ['', Validators.required],
       guideDate: ['', Validators.required],
@@ -36,11 +56,44 @@ export class EditComponent implements OnInit {
 
     })
 
-  }
-Save(){}
+    this.decisionForm = this._fb.group({
+      status: ['', Validators.required],
+      reason: ['']
+    })
+    this.decisionForm.get('status').valueChanges.subscribe(
+      value => {
+        this.handbookStatusChange(value)
+      })
 
-uploadImage(event){}
-uploadFiles(event){}
+  }
+  handbookStatusChange(value: string) {
+    if (value == 'Rejected') {
+      this.decisionForm.get('reason').enable();
+      this.decisionForm.get('reason').setValidators(Validators.required);
+    }
+    else {
+      this.decisionForm.get('reason').clearValidators();
+      this.decisionForm.get('reason').setValue('');
+      this.decisionForm.get('reason').disable();
+    }
+    this.decisionForm.get('reason').updateValueAndValidity();
+
+  }
+
+
+  getHandbook() {
+    this._handbookServ.getDetails(this.handbookId).subscribe(
+      res => {
+        this.handbook = res
+      },
+      err => console.log(err)
+    )
+  }
+
+  Save() { }
+
+  uploadImage(event) { }
+  uploadFiles(event) { }
 
 
 
