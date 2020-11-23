@@ -20,20 +20,20 @@
 
 
 <div>
-<ngb-pagination
-class="d-flex justify-content-center"
-[maxSize]="3"
-[rotate]="true"
-[collectionSize]="2"
-[pageSize]="2"
-[(page)]="currentPage"
-(pageChange)="changePage($event)"
->
-<ng-template ngbPaginationFirst>First</ng-template>
-<ng-template ngbPaginationLast>Last</ng-template>
-<ng-template ngbPaginationPrevious> < </ng-template>
-<ng-template ngbPaginationNext> > </ng-template>
-<ng-template ngbPaginationEllipsis>...</ng-template>
-<ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
-</ngb-pagination>
+    <ngb-pagination
+    class="d-flex justify-content-center"
+    [maxSize]="3"
+    [rotate]="true"
+    [collectionSize]="5"
+    [pageSize]="pageSize"
+    [(page)]="currentPage"
+    (pageChange)="changePage($event)"
+    >
+    <ng-template ngbPaginationFirst>First</ng-template>
+    <ng-template ngbPaginationLast>Last</ng-template>
+    <ng-template ngbPaginationPrevious> < </ng-template>
+    <ng-template ngbPaginationNext> > </ng-template>
+    <ng-template ngbPaginationEllipsis>...</ng-template>
+    <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+    </ngb-pagination>
 </div>

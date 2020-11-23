@@ -5,7 +5,7 @@ import { HandbookDetailsDTO } from '../../models/handBookModule/HandbookDetailsD
 import { HandBookDTO } from '../../models/handBookModule/HandBookDTO';
 import { HandbookListingDTO } from '../../models/handBookModule/HandbookListingDTO';
 import { HandBookStatus } from '../../models/handBookModule/HandBookStatus';
-import { SearchDTO } from '../../models/SearchDTO';
+import { SearchDTO } from '../../models/handBookModule/SearchDTO';
 
 @Injectable({
   providedIn: 'root'

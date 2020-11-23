@@ -4,6 +4,8 @@ import { strict } from 'assert';
 import { $ } from 'protractor';
 import { Country } from 'src/app/container/models/handBookModule/Country';
 import { HandBookDTO } from 'src/app/container/models/handBookModule/HandBookDTO';
+import { LookupDTO } from 'src/app/container/models/lookup/lookupDTO';
+import { LookupService } from 'src/app/container/services/lookup/lookup.service';
 
 @Component({
   selector: 'app-handbook-form',
@@ -13,7 +15,7 @@ import { HandBookDTO } from 'src/app/container/models/handBookModule/HandBookDTO
 export class HandbookFormComponent implements OnInit {
   handBook: HandBookDTO;
   handBookForm: FormGroup;
-  countries: Country[];
+  countries: LookupDTO[];
   formData: FormData;
   selectedImage: File;
   selectedFiles: File[]=[];
@@ -24,10 +26,12 @@ export class HandbookFormComponent implements OnInit {
   baseFileUrl: string = 'assets/images/';
   fileExcessed: boolean = false;
   today:Date;
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder,private _lookupServ:LookupService) { }
 
   ngOnInit(): void {
+    
     this.today=new Date();
+  
     this.handBookForm = this._fb.group({
       title: ['', [Validators.required,Validators.pattern('^[a-zA-Z]+$')]],
       countryId: ['', Validators.required],
@@ -35,14 +39,25 @@ export class HandbookFormComponent implements OnInit {
       guideInfo: ['', [Validators.required, Validators.maxLength(250)]],
 
     })
+
+    this.loodLookups();
   }
+  
+  loodLookups(){
+    this._lookupServ.getCountries().subscribe(res=>{
+      this.countries=res
+    },
+    err=>{console.log(err)}
+    );
+  }
+
   Create() {
     this.formData = new FormData()
     this.formData.append("title", this.handBookForm.controls.title.value)
     this.formData.append("countryId", this.handBookForm.controls.countryId.value)
     this.formData.append("guideDate", this.handBookForm.controls.guideDate.value)
     this.formData.append("guideInfo", this.handBookForm.controls.guideInfo.value)
-    this.formData.append("image", this.selectedImage)
+    this.formData.append("attachments", this.selectedImage)
 
     if (this.fileNames.length > 0) {
       let attachments: FormDataEntryValue[] = [];
@@ -51,9 +66,7 @@ export class HandbookFormComponent implements OnInit {
         // attachments.push(file);
         this.formData.append('attachments', file);
 
-        // this.formData.append('attachments' , file);
       });
-      // this.registerForm.controls.file.setValue(attachments);
     }
   }
   uploadImage(event) {
