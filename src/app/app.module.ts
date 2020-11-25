@@ -10,6 +10,8 @@ import { TranslateModule, TranslateLoader, TranslateService } from  '@ngx-transl
 import { TranslateHttpLoader } from  '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from  '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // loader module
 export  function  HttpLoaderFactory(http:  HttpClient) {
@@ -27,6 +29,8 @@ export  function  HttpLoaderFactory(http:  HttpClient) {
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide:  TranslateLoader,

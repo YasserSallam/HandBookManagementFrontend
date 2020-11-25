@@ -14,7 +14,6 @@ import { DetailsComponent } from './components/details/details.component';
 import { EditComponent } from './components/edit/edit.component';
 import { ListComponent } from './components/list/list.component';
 
-
 export  function  HttpLoaderFactory(http:  HttpClient) {
   return  new  TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -27,7 +26,7 @@ export  function  HttpLoaderFactory(http:  HttpClient) {
     ReactiveFormsModule,
     TranslateModule,
     NgbModule,
-    FormsModule
+    FormsModule,
   ],
   exports:[],
   providers: [],

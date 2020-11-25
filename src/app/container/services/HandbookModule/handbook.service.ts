@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HandbookDetailsDTO } from '../../models/handBookModule/HandbookDetailsDTO';
@@ -7,17 +7,20 @@ import { HandbookListingDTO } from '../../models/handBookModule/HandbookListingD
 import { HandBookStatus } from '../../models/handBookModule/HandBookStatus';
 import { SearchDTO } from '../../models/handBookModule/SearchDTO';
 import { IPagedList } from '../../interfaces/IPagedList';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HandbookService {
-private url:string='backend url'
-  constructor(private _http:HttpClient) { }
+  private url:string=environment.BackendURL + 'handbook/';
 
-  create(handbbok:HandBookDTO){
-    this._http.post(this.url,handbbok);
+  constructor(private _http:HttpClient) { }
+  create(handbbok:any) : Observable<boolean>{
+  return  this._http.post(this.url+'create',handbbok) as Observable<boolean>;
+    
   }
+ 
   getAll(searchDTO:SearchDTO):Observable<IPagedList<HandbookListingDTO>>{
    return this._http.post(this.url,searchDTO) as Observable<IPagedList<HandbookListingDTO>>;
   }
