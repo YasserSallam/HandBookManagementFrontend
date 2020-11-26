@@ -24,16 +24,6 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //temp\
-    this.handbooks.totalCount = 20;
-    this.handbooks.data = [
-      { id: 1, title: 'H1', guideInfo: 'info1', guideDate: null },
-      { id: 2, title: 'H2', guideInfo: 'info2', guideDate: null },
-      { id: 3, title: 'H3', guideInfo: 'info3', guideDate: null },
-      { id: 4, title: 'H4', guideInfo: 'info4', guideDate: null },
-      { id: 5, title: 'H5', guideInfo: 'info5', guideDate: null },
-    ]
-    //
     this.pageSize = this._sharedServ.PageSize;
     this.initSearchObj()
     this.getPendingHandbooks(this.searchObj);
@@ -50,26 +40,29 @@ export class ListComponent implements OnInit {
   }
 
   getPendingHandbooks(search: SearchDTO) {
-    this._handbookServ.getAll(search).subscribe(res => {
+    this._handbookServ.getHandbooks(search).subscribe(res => {
       this.handbooks = res
     },
-      err => console.log(err))
-  }
-  edit(event, id) {
-    event.preventDefault();
-    this._router.navigate(['handbook/edit/' + id]);
-  }
+      err => {
+        console.log(err)
+  })
+}
+edit(event, id) {
+  event.preventDefault();
+  this._router.navigate(['handbook/edit/' + id]);
+}
 
-  changePage(pagenumber) {
-    this.currentPage = parseInt(pagenumber);
-    // fire get
+changePage(pagenumber) {
+  this.currentPage = parseInt(pagenumber);
+  this.searchObj.pagenumber=this.currentPage;
+  this.getPendingHandbooks(this.searchObj);  // fire get
 
-  }
+}
 
-  view(event, id) {
-    event.preventDefault();
-    this._router.navigate(['handbook/details/' + id]);
-  }
+view(event, id) {
+  event.preventDefault();
+  this._router.navigate(['handbook/details/' + id]);
+}
 
 
 }

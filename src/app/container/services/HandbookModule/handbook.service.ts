@@ -21,8 +21,8 @@ export class HandbookService {
     
   }
  
-  getAll(searchDTO:SearchDTO):Observable<IPagedList<HandbookListingDTO>>{
-   return this._http.post(this.url,searchDTO) as Observable<IPagedList<HandbookListingDTO>>;
+  getHandbooks(searchDTO:SearchDTO):Observable<IPagedList<HandbookListingDTO>>{
+   return this._http.post(this.url+'getHandbooks',searchDTO) as Observable<IPagedList<HandbookListingDTO>>;
   }
   updateStatus(handbook:HandBookStatus){
     return this._http.post(this.url,handbook) ;

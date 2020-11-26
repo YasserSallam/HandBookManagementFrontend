@@ -5,7 +5,7 @@
                     <span>{{'Country'|translate}} </span>
                     <select class="form-control form-control-lg custom-form-control-option" placeholder="Select Country"
                         formControlName="countryId">
-                        <option></option>
+                        <option disabled>{{'Please Select' |translate}}</option>
                         <option *ngFor="let country of countries" [ngValue]="country.id">
                             {{ country.name }}
                         </option>
@@ -46,14 +46,14 @@
     <table class="table">
         <tr>
             <th scope="col"> {{'Title' | translate }}</th>
-            <th scope="col">{{'GuideInfo' | translate }}</th>
             <th scope="col">  {{'GuideDate' | translate }}</th>
+            <th scope="col">  {{'CountryName' | translate }}</th>
             <th scope="col"> {{'Action' | translate }}</th>
         </tr>
         <tr *ngFor="let handbook of handbooks.data">
             <td>{{handbook.title}} </td>
-            <td>{{handbook.guideInfo}} </td>
-            <td>{{handbook.guideDate}} </td>
+            <td>{{handbook.guideDate |date:'mediumDate'}}  </td>
+            <td>{{handbook.countryName}} </td>
             <td><a href="" (click)="view($event,handbook.id)">{{'Details' | translate}} </a></td>
         </tr>
 

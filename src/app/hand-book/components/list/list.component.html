@@ -2,14 +2,14 @@
     <table class="table">
         <tr >
             <th scope="col">{{'Title' | translate }}</th>
-            <th scope="col">{{'GuideInfo' | translate }}</th>
             <th scope="col">{{'GuideDate' | translate }}</th>
+            <th scope="col">{{'CountryName' | translate }}</th>
             <th scope="col">{{'Action' | translate }}</th>
         </tr>
         <tr *ngFor="let handbook of handbooks.data"> 
             <td>{{handbook.title}} </td>
-            <td>{{handbook.guideInfo}} </td>
-            <td>{{handbook.guideDate}} </td>
+            <td>{{handbook.guideDate | date:'mediumDate'}}  </td>
+            <td>{{handbook.countryName}} </td>
             <td><a href="" (click)="view($event,handbook.id)">{{'Details' | translate}} </a></td>
             <td><a href="" (click)="edit($event,handbook.id)">{{'Edit' | translate}} </a></td>
         </tr>

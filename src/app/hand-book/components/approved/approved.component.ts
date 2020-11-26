@@ -7,6 +7,7 @@ import { IPagedList } from 'src/app/container/interfaces/IPagedList';
 import { HandbookListingDTO } from 'src/app/container/models/handBookModule/HandbookListingDTO';
 import { SearchDTO } from 'src/app/container/models/handBookModule/SearchDTO';
 import { HandbookService } from 'src/app/container/services/HandbookModule/handbook.service';
+import { LookupService } from 'src/app/container/services/lookup/lookup.service';
 import { SharedService } from 'src/app/container/services/shared/shared.service';
 
 @Component({
@@ -22,21 +23,9 @@ export class ApprovedComponent implements OnInit {
   searchObj:SearchDTO;
   handbooks: IPagedList<HandbookListingDTO> ={} as IPagedList<HandbookListingDTO>;
   constructor(private _router: Router, private _fb: FormBuilder, private _sharedServ: SharedService,
-    private _handbookServ:HandbookService) { }
+    private _handbookServ:HandbookService,private _lookupServ:LookupService) { }
 
   ngOnInit(): void {
-//temp
-this.handbooks.data= [
-  { id: 1, title: 'H1', guideInfo: 'info1', guideDate: null },
-  { id: 2, title: 'H2', guideInfo: 'info2', guideDate: null },
-  { id: 3, title: 'H3', guideInfo: 'info3', guideDate: null },
-  { id: 4, title: 'H4', guideInfo: 'info4', guideDate: null },
-  { id: 5, title: 'H5', guideInfo: 'info5', guideDate: null },
-]
-//
-
-
-
     this.pageSize = this._sharedServ.PageSize;
     this.searchForm = this._fb.group({
       countryId: [],
@@ -47,7 +36,8 @@ this.handbooks.data= [
     })
 
     this.initSearchObj()
-   // this.getApprovedHandbooks(this.searchObj);
+    this.getLookups();
+   this.getApprovedHandbooks(this.searchObj);
   }
 
   initSearchObj() {
@@ -56,9 +46,14 @@ this.handbooks.data= [
     this.searchObj.pagenumber = this.currentPage;
     this.searchObj.handbookStatus = StatusEnum.Approved;
   }
-
+  getLookups(){
+    this._lookupServ.getCountries().subscribe(
+      res=>this.countries=res,
+      err=>console.log(err)
+    )
+  }
   getApprovedHandbooks(search: SearchDTO) {
-    this._handbookServ.getAll(search).subscribe(res => {
+    this._handbookServ.getHandbooks(search).subscribe(res => {
       this.handbooks = res
     },
       err => console.log(err))

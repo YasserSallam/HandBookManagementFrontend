@@ -16,6 +16,8 @@
     "PerviousDatesNotAllowed":"Pervious Dates Not Allowed",
     "ToDate":"To Date",
     "FromDate":"From Date",
-    "Search":"Search"
+    "Search":"Search",
+    "Some Errors Occured":"Some Errors Occured",
+    "CountryName":"Country"
 
 }

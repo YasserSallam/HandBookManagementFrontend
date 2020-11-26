@@ -14,13 +14,14 @@ const routes: Routes = [
   {
     path:"create", component:HandbookFormComponent
   },
+  {
+    path:"list/approved", component:ApprovedComponent
+  },
  
   {
     path:"list/:status", component:ListComponent
   },
-  {
-    path:"approved", component:ApprovedComponent
-  },
+ 
   {
     path:"details/:id", component:DetailsComponent
   },

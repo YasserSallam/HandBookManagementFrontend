@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { translate } from '@angular/localize/src/utils';
 import { Router } from '@angular/router';
 import { strict } from 'assert';
 import { ToastrService } from 'ngx-toastr';
@@ -78,7 +79,7 @@ export class HandbookFormComponent implements OnInit {
         this._tostar.success("Created Successfully");
         this._router.navigate(['handbook']);
       },
-     err=> this._tostar.error("Some Error Occured ")
+     err=>  this._tostar.error("Some Errors Occured")
       
     );
   }

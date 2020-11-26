@@ -16,5 +16,7 @@
     "PerviousDatesNotAllowed":"غير مسموح بالتواريخ السابقه",
     "ToDate":"الي تاريخ",
     "FromDate":"من تاريخ",
-    "Search":"بحــث"
+    "Search":"بحــث",
+    "Some Errors Occured":"لقد حدث خطا",
+    "CountryName":"الدوله"
 }

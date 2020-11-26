@@ -6,7 +6,7 @@ export class SearchDTO{
     pageSize:number;
     handbookStatus:StatusEnum;
     title:string;
-    fromDate:Date;
-    toDate:Date;
-    countryId:number;
+    fromDate?:Date;
+    toDate?:Date;
+    countryId?:number;
 }
