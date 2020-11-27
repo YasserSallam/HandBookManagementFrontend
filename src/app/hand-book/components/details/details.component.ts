@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { error } from 'console';
 import { HandbookDetailsDTO } from 'src/app/container/models/handBookModule/HandbookDetailsDTO';
 import { HandBookStatus } from 'src/app/container/models/handBookModule/HandBookStatus';
 import { LookupDTO } from 'src/app/container/models/lookup/lookupDTO';
+import { AttachmentService } from 'src/app/container/services/HandbookModule/attachment.service';
 import { HandbookService } from 'src/app/container/services/HandbookModule/handbook.service';
 import { LookupService } from 'src/app/container/services/lookup/lookup.service';
 import { SharedService } from 'src/app/container/services/shared/shared.service';
 import { environment } from 'src/environments/environment';
+import * as FileSaver from 'file-saver'
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-details',
@@ -16,23 +17,24 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-  handbook:HandbookDetailsDTO;
+  handbook: HandbookDetailsDTO;
   handbookId: any;
   countries: LookupDTO[] = [];
   user: string;
-  selectedImageUrl:string;
+  selectedImageUrl: string;
   baseFileUrl: string = environment.FilesURL;
-imgSrc='data:image/jpeg;base64,'
+  imgSrc = 'data:image/jpeg;base64,'
   constructor(private _route: ActivatedRoute,
     private _handbookServ: HandbookService,
     private _router: Router,
-    private _lookupServ:LookupService,
-    private _sharedServ:SharedService) { }
+    private _lookupServ: LookupService,
+    private _sharedServ: SharedService,
+    private _attachmentServ: AttachmentService) { }
 
   ngOnInit(): void {
     this.loodLookups();
     this.handbookId = this._route.snapshot.paramMap.get('id');
-    if(this.handbookId)
+    if (this.handbookId)
       this.GetHandbook(+this.handbookId);
   }
   loodLookups() {
@@ -42,23 +44,53 @@ imgSrc='data:image/jpeg;base64,'
       err => { console.log(err) }
     );
   }
-  GetHandbook(id:number){
+  GetHandbook(id: number) {
     this._handbookServ.getDetails(id).subscribe(
-      res=>
-      {
-        this.handbook=res;
-      this.imgSrc=this.imgSrc+res.image
+      res => {
+        this.handbook = res;
+        this.imgSrc = this.imgSrc + res.image
       },
-      error=>console.log(error)
+      error => console.log(error)
     )
   }
-  
-  manageFileType(name: string): string{
+
+  manageFileType(name: string): string {
     return this._sharedServ.manageFileType(name)
+  }
+
+  downloadFile(id, fileName:string) {
+let extension=fileName.split('.')[0];
+
+    this._attachmentServ.download(id)
+      .subscribe((res) => {
+        var blob = this.convertBase64ToBlobData(res, 'application'+`/`+extension);
+        FileSaver. saveAs(blob,fileName);
+      }, error => console.log(error))
+
+
+  }
+
+
+  convertBase64ToBlobData(base64Data: string, contentType: string, sliceSize=512) {
+    const byteCharacters = window.atob(base64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
       }
 
-      downloadFile(id){
-        debugger;
-      }
+      const byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  }
+
 
 }

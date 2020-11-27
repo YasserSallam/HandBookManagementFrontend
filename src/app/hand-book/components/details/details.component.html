@@ -58,7 +58,7 @@
                             <img width="30px" height="30px" class="card-img-top"
                                 [src]="baseFileUrl + manageFileType(file.name)" />
                         </div>
-                        <a href="" (click)="$event.preventDefault(); downloadFile(file.id)">{{file.name}}</a>
+                        <a href="" (click)="$event.preventDefault(); downloadFile(file.id,file.name)">{{file.name}}</a>
                        
                     </div>
 
