@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Country } from 'src/app/container/models/handBookModule/Country';
+import { HandbookDetailsDTO } from 'src/app/container/models/handBookModule/HandbookDetailsDTO';
 import { HandBookDTO } from 'src/app/container/models/handBookModule/HandBookDTO';
 import { HandbookService } from 'src/app/container/services/HandbookModule/handbook.service';
 
@@ -13,7 +14,7 @@ import { HandbookService } from 'src/app/container/services/HandbookModule/handb
 })
 export class EditComponent implements OnInit {
   handbookId: number;
-  handbook: HandBookDTO;
+  handbook: HandbookDetailsDTO;
   handBookForm: FormGroup;
   decisionForm: FormGroup;
   countries: Country[];
@@ -32,8 +33,6 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     let today: Date = new Date();
-    this.handbook = { id: 1, title: "T1", guideDate: today, countryId: 1, guideInfo: "info", attachments: null, image: null };
-
     this.user = localStorage.getItem('user');
 
     this.handbookId = parseInt(this._route.snapshot.paramMap.get('id'));

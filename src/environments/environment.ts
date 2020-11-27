@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-BackendURL:'http://localhost:53929/api/'
+BackendURL:'http://localhost:53929/api/',
+FilesURL:'assets/images/'
+
 };
 
 

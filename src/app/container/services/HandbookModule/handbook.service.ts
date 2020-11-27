@@ -29,7 +29,7 @@ export class HandbookService {
   }
 
   getDetails(id:number):Observable<HandbookDetailsDTO>{
-    return this._http.get(this.url+'/'+id) as Observable<HandbookDetailsDTO> ;
+    return this._http.get(this.url+'details/'+id) as Observable<HandbookDetailsDTO> ;
   }
   updateDetails(handbook:HandbookDetailsDTO){
     return this._http.post(this.url,handbook) ;

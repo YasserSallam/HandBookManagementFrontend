@@ -1,4 +1,5 @@
 import { StatusEnum } from '../../enums/statusEnum';
+import { AttachmentDTO } from './AttachmentDTO';
 
 export class HandbookDetailsDTO {
     id:number;
@@ -7,6 +8,6 @@ export class HandbookDetailsDTO {
     countryId:number;
     guideDate:Date;
     guideInfo:string;
-    attachments:any[];
+    attachments:AttachmentDTO[];
     image:any;
 }

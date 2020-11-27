@@ -10,6 +10,8 @@ import { HandBookDTO } from 'src/app/container/models/handBookModule/HandBookDTO
 import { LookupDTO } from 'src/app/container/models/lookup/lookupDTO';
 import { HandbookService } from 'src/app/container/services/HandbookModule/handbook.service';
 import { LookupService } from 'src/app/container/services/lookup/lookup.service';
+import { SharedService } from 'src/app/container/services/shared/shared.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-handbook-form',
@@ -27,11 +29,13 @@ export class HandbookFormComponent implements OnInit {
   selectedImageName = '';
   imageUploaded: boolean = false;
   fileNames: string[] = [];
-  baseFileUrl: string = 'assets/images/';
+  baseFileUrl: string = environment.FilesURL;
   fileExcessed: boolean = false;
   today: Date;
   constructor(private _fb: FormBuilder, private _lookupServ: LookupService
-    , private _handbookSer: HandbookService, private _router: Router, private _tostar: ToastrService) { }
+    , private _handbookSer: HandbookService, private _router: Router,
+     private _tostar: ToastrService,
+     private _sharedServ:SharedService) { }
 
   ngOnInit(): void {
 
@@ -117,21 +121,7 @@ export class HandbookFormComponent implements OnInit {
       }
     });
   }
-  manageFileType(name: string): string {
-    let fileNameArr = name.split('.');
-
-    let extension = fileNameArr[fileNameArr.length - 1];
-    switch (extension) {
-      case 'pdf':
-        return 'PDF.svg'
-      case 'doc':
-      case 'docx':
-        return 'docx.svg'
-    }
-
-
-  }
-
+  
   removeFile(fileName) {
     this.fileNames = this.fileNames.filter(name => name != fileName);
     this.formData.delete(fileName);
@@ -139,5 +129,8 @@ export class HandbookFormComponent implements OnInit {
 
   }
 
+  manageFileType(name: string): string{
+return this._sharedServ.manageFileType(name)
+  }
 
 }
