@@ -41,7 +41,7 @@ export class EditComponent implements OnInit {
   attachments: AttachmentDTO[] = [];
   handbookFiles: AttachmentDTO[] = [];
   removedFiles: number[] = [];
-
+  today:any;
   constructor(private _fb: FormBuilder, private _handbookServ: HandbookService,
     private _route: ActivatedRoute, private _lookupServ: LookupService,
     private _sharedServ: SharedService,
@@ -51,6 +51,8 @@ export class EditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    debugger;
+    this.today=formatDate(new Date(),'yyyy-MM-dd','en');
     this.user = localStorage.getItem('user');
     this.initForm();
     if (this.user === 'admin') {
@@ -246,6 +248,10 @@ this._handbookServ.updateStatus(HandbookStaus).subscribe(
     const blob = new Blob(byteArrays, { type: contentType });
     return blob;
   }
+
+  getToday(): string {
+     return new Date().toISOString().split('T')[0]
+ }
 
 
 }

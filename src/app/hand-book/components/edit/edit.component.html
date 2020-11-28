@@ -61,7 +61,7 @@
                 <div class="form-group">
                     <span class="h4"> {{'GuideDate' | translate}} </span><span class="text-danger">*</span>
                     <input type="date" class="form-control" 
-                    formControlName="guideDate" />
+                    formControlName="guideDate" [min]="today"/>
                <!--  -->
                 </div>
             </div>
