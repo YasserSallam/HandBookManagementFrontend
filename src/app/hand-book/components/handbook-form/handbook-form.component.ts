@@ -42,7 +42,7 @@ export class HandbookFormComponent implements OnInit {
     this.today = new Date();
 
     this.handBookForm = this._fb.group({
-      title: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+      title: ['', [Validators.required, Validators.pattern('^[^(0-9)]+$')]],
       countryId: ['', Validators.required],
       guideDate: ['', Validators.required],
       guideInfo: ['', [Validators.required, Validators.maxLength(250)]],
@@ -61,7 +61,6 @@ export class HandbookFormComponent implements OnInit {
   }
 
   Create() {
-    debugger
     this.formData = new FormData()
     this.formData.append("title", this.handBookForm.controls.title.value)
     this.formData.append("countryId", this.handBookForm.controls.countryId.value)
@@ -100,21 +99,16 @@ export class HandbookFormComponent implements OnInit {
   }
 
   uploadFiles(files) {
-    debugger;
-
     if (files.length === 0) {
       return;
     }
     if (files.length > 5 || this.fileNames.length >= 5) {
       this.fileExcessed = true;
       return;
-
     }
     let filesToUpload: File[] = files;
-
-
     Array.from(filesToUpload).map((file, index) => {
-      debugger;
+      ;
       if (!this.fileNames.includes(file.name)) {
         this.fileNames.push(file.name);
         this.selectedFiles.push(file);

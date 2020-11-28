@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HandbookDetailsDTO } from 'src/app/container/models/handBookModule/HandbookDetailsDTO';
-import { HandBookStatus } from 'src/app/container/models/handBookModule/HandBookStatus';
+import { HandBookStatusDTO } from 'src/app/container/models/handBookModule/HandBookStatusDTO';
 import { LookupDTO } from 'src/app/container/models/lookup/lookupDTO';
 import { AttachmentService } from 'src/app/container/services/HandbookModule/attachment.service';
 import { HandbookService } from 'src/app/container/services/HandbookModule/handbook.service';
@@ -10,6 +10,8 @@ import { SharedService } from 'src/app/container/services/shared/shared.service'
 import { environment } from 'src/environments/environment';
 import * as FileSaver from 'file-saver'
 import { map } from 'rxjs/operators'
+import { AttachmentDTO } from 'src/app/container/models/handBookModule/AttachmentDTO';
+import { FileTypeEnum } from 'src/app/container/enums/FileTypeEnum';
 
 @Component({
   selector: 'app-details',
@@ -20,6 +22,8 @@ export class DetailsComponent implements OnInit {
   handbook: HandbookDetailsDTO;
   handbookId: any;
   countries: LookupDTO[] = [];
+  attachments:AttachmentDTO[]=[];
+  handbookFiles:AttachmentDTO[]=[];
   user: string;
   selectedImageUrl: string;
   baseFileUrl: string = environment.FilesURL;
@@ -49,11 +53,16 @@ export class DetailsComponent implements OnInit {
       res => {
         this.handbook = res;
         this.imgSrc = this.imgSrc + res.image
+        this.attachments=res.attachments
+       this.ExtractFiles()
       },
       error => console.log(error)
     )
   }
+  ExtractFiles(){
+this.handbookFiles=this.attachments.filter(f=>f.type == FileTypeEnum.file)
 
+  }
   manageFileType(name: string): string {
     return this._sharedServ.manageFileType(name)
   }

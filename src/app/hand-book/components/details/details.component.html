@@ -50,18 +50,14 @@
         <div class="form-group">
             <span class="h4"> {{'Attachments' | translate}} <br /> </span>
             <!-- begin of div -->
-            <div class="row mb-5" *ngIf="handbook.attachments.length >0">
+            <div class="row mb-5" *ngIf="handbookFiles.length >0">
                 <!--  -->
-                <div class="card col" *ngFor="let file of handbook.attachments">
-                    <div class="card-body">
+                <div class="card col" *ngFor="let file of handbookFiles">
                         <div>
                             <img width="30px" height="30px" class="card-img-top"
                                 [src]="baseFileUrl + manageFileType(file.name)" />
                         </div>
                         <a href="" (click)="$event.preventDefault(); downloadFile(file.id,file.name)">{{file.name}}</a>
-                       
-                    </div>
-
                 </div>
               
             </div>

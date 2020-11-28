@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HandbookDetailsDTO } from '../../models/handBookModule/HandbookDetailsDTO';
 import { HandBookDTO } from '../../models/handBookModule/HandBookDTO';
 import { HandbookListingDTO } from '../../models/handBookModule/HandbookListingDTO';
-import { HandBookStatus } from '../../models/handBookModule/HandBookStatus';
+import { HandBookStatusDTO } from '../../models/handBookModule/HandBookStatusDTO';
 import { SearchDTO } from '../../models/handBookModule/SearchDTO';
 import { IPagedList } from '../../interfaces/IPagedList';
 import { environment } from 'src/environments/environment';
@@ -24,15 +24,15 @@ export class HandbookService {
   getHandbooks(searchDTO:SearchDTO):Observable<IPagedList<HandbookListingDTO>>{
    return this._http.post(this.url+'getHandbooks',searchDTO) as Observable<IPagedList<HandbookListingDTO>>;
   }
-  updateStatus(handbook:HandBookStatus){
-    return this._http.post(this.url,handbook) ;
+  updateStatus(handbook:HandBookStatusDTO){
+    return this._http.post(this.url+'updateStatus',handbook) ;
   }
 
   getDetails(id:number):Observable<HandbookDetailsDTO>{
     return this._http.get(this.url+'details/'+id) as Observable<HandbookDetailsDTO> ;
   }
-  updateDetails(handbook:HandbookDetailsDTO){
-    return this._http.post(this.url,handbook) ;
+  updateDetails(handbook:any){
+    return this._http.post(this.url+'update',handbook) ;
 
   }
 }

@@ -3,14 +3,14 @@
         <div class="form-group">
             <p>{{'Decision'}} </p>
             <div class="form-check form-check-inline">
-            <input type="radio" value="Approved" id="Approved" 
+            <input type="radio" value="1" id="Approved" 
             formControlName="status" name="status" class="form-check-input">
 
             <label class="form-check-label" for="Approved">
                 {{'Approved' | translate}}
               </label>
 
-              <input type="radio" value="Rejected" id="Rejected"
+              <input type="radio" value="2" id="Rejected"
               formControlName="status" name="status" class="form-check-input">
 
             <label class="form-check-label" for="Rejected">
@@ -36,15 +36,16 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <span> {{'Title'| translate}} </span><span class="text-danger">*</span>
+                    <span class="h4"> {{'Title'| translate}} </span><span class="text-danger">*</span>
                     <input type="text"  [(ngModel)]="handbook.title" class="form-control" formControlName="title">
                 </div>
             </div>
 
             <div class="col-6">
                 <div class="form-group">
-                    <span>{{'Country'|translate}} </span><span class="text-danger">*</span>
-                    <select  class="form-control form-control-lg custom-form-control-option" placeholder="Select Country"
+                    <span class="h4">{{'Country'|translate}} </span><span class="text-danger">*</span>
+                    <select  class="form-control form-control-lg custom-form-control-option"
+                     placeholder="Select Country" [(ngModel)]="handbook.countryId"
                         formControlName="countryId" >
                         <option></option>
                         <option *ngFor="let country of countries" [ngValue]="country.id">
@@ -58,13 +59,13 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <span> {{'GuideDate' | translate}} </span><span class="text-danger">*</span>
-                    <input type="date"  formControlName="guideDate" [(ngModel)]="handbook.guideDate" class="form-control" formControlName="guideDate">
+                    <span class="h4"> {{'GuideDate' | translate}} </span><span class="text-danger">*</span>
+                    <input type="date" [(ngModel)]="handbook.guideDate" class="form-control" formControlName="guideDate"/>
                 </div>
             </div>
             <div class="col-6">
                 <div class="form-group">
-                    <span>{{'GuideInfo' | translate}} </span><span class="text-danger">*</span>
+                    <span class="h4">{{'GuideInfo' | translate}} </span><span class="text-danger">*</span>
                     <textarea formControlName="guideInfo"   [(ngModel)]="handbook.guideInfo" class="form-control"> </textarea>
                 </div>
             </div>
@@ -74,35 +75,36 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <span> {{'Image' | translate}}</span><span class="text-danger">*</span>
-                    <input type="file"   (change)="uploadImage($event)" #file class="form-control" />
+                    <p class="h4"> {{'Image' | translate}}</p><span class="text-danger">*</span>
+                    <input type="file"    (change)="uploadImage($event)" #file class="form-control" *ngIf="user == 'user'" />
                     <!-- <input type="text" class="form-control" (click)="file.click()" placeholder="select file" /> -->
-                    <img [src]="selectedImageUrl" height="100px" width="100px" *ngIf="imageUploaded" />
+                    <img [src]="imgSrc" height="100px" width="100px" *ngIf="handbook.image" />
                 </div>
             </div>
             <div class="col-6">
                 <div class="form-group">
-                    <span> {{'Attachments' | translate}}</span><span class="text-danger">*</span> <br />
-                    <input type="file"  (change)="uploadFiles(attachmentfile.files)" hidden multiple #attachmentfile
-                        class="form-control" />
-                    <button class="btn-attach" (click)="attachmentfile.click();fileExcessed=false">Attach</button>
-                    <small class="text-danger" *ngIf="fileExcessed">{{'maxNumberOfFilesIs5' | translate}} </small>
+                    <span class="h4"> {{'Attachments' | translate}}  </span> <br />
+                    <input type="file" (change)="uploadFiles(attachmentfile.files)" hidden multiple #attachmentfile
+                        class="form-control" accept=".docx,.doc,.pdf"/>
+                    <button class="btn-attach" (click)="attachmentfile.click();fileExcessed=false"
+                    *ngIf="user == 'user'"
+                    >Attach</button>
+                    <small class="text-danger"  *ngIf="fileExcessed">{{'maxNumberOfFilesIs5' | translate}} </small>
                     <!-- begin of div -->
-                    <div class="row mb-5" *ngIf="fileNames.length >0">
-                        <div class="mln-2">
-                            <ul class="">
-                                <li class="" *ngFor="let fileName of fileNames">
-                                    <span>
-                                        <img width="30px" height="30px" class=""
-                                            [src]="baseFileUrl + manageFileType(fileName)" />
-                                    </span>
-                                    <span class="" title="{{ fileName }}">{{
-                                    fileName
-                                  }}</span>
-                                    <a class="remove" (click)="removeFile(fileName)"> ×</a>
-                                </li>
-                            </ul>
+                    <div class="row mb-5" *ngIf="handbookFiles.length >0">
+                        <!--  -->
+                        <div class="card col" *ngFor="let file of handbookFiles">
+                                <a href="" class="link" (click)="$event.preventDefault();removeFile(file.id)" *ngIf="user=='user'"> ×</a>
+                                <div>
+                                    <img width="30px" height="30px" class="card-img-top"
+                                        [src]="baseFileUrl + manageFileType(file.name)" />
+                                </div>
+                                <di class="text-center">
+                                <a href="" (click)="$event.preventDefault(); downloadFile(file.id,file.name)">{{file.name}}</a>
+                            </di>
+        
                         </div>
+                      
                     </div>
                     <!-- end of div -->
                 </div>
