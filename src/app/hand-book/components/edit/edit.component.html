@@ -31,13 +31,13 @@
 
 
 
-<div class="mainForm">
+<div class="mainForm" *ngIf="handbook">
     <form [formGroup]="handBookForm" (ngSubmit)="Save()">
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
                     <span class="h4"> {{'Title'| translate}} </span><span class="text-danger">*</span>
-                    <input type="text"  [(ngModel)]="handbook.title" class="form-control" formControlName="title">
+                    <input type="text"   class="form-control" formControlName="title">
                 </div>
             </div>
 
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <span class="h4">{{'Country'|translate}} </span><span class="text-danger">*</span>
                     <select  class="form-control form-control-lg custom-form-control-option"
-                     placeholder="Select Country" [(ngModel)]="handbook.countryId"
+                     placeholder="Select Country"
                         formControlName="countryId" >
                         <option></option>
                         <option *ngFor="let country of countries" [ngValue]="country.id">
@@ -60,13 +60,15 @@
             <div class="col-6">
                 <div class="form-group">
                     <span class="h4"> {{'GuideDate' | translate}} </span><span class="text-danger">*</span>
-                    <input type="date" [(ngModel)]="handbook.guideDate" class="form-control" formControlName="guideDate"/>
+                    <input type="date" class="form-control" 
+                    formControlName="guideDate" />
+               <!--  -->
                 </div>
             </div>
             <div class="col-6">
                 <div class="form-group">
                     <span class="h4">{{'GuideInfo' | translate}} </span><span class="text-danger">*</span>
-                    <textarea formControlName="guideInfo"   [(ngModel)]="handbook.guideInfo" class="form-control"> </textarea>
+                    <textarea formControlName="guideInfo"  class="form-control"> </textarea>
                 </div>
             </div>
 
@@ -75,7 +77,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <p class="h4"> {{'Image' | translate}}</p><span class="text-danger">*</span>
+                    <p class="h4"> {{'Image' | translate}} <span class="text-danger">*</span> </p>
                     <input type="file"    (change)="uploadImage($event)" #file class="form-control" *ngIf="user == 'user'" />
                     <!-- <input type="text" class="form-control" (click)="file.click()" placeholder="select file" /> -->
                     <img [src]="imgSrc" height="100px" width="100px" *ngIf="handbook.image" />
@@ -117,3 +119,4 @@
         </div>
     </form>
 </div>
+

@@ -16,6 +16,7 @@ import * as FileSaver from 'file-saver'
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'protractor';
 import { HandBookStatusDTO } from 'src/app/container/models/handBookModule/HandBookStatusDTO';
+import {formatDate }from '@angular/common'
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -50,20 +51,16 @@ export class EditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let today: Date = new Date();
     this.user = localStorage.getItem('user');
+    this.initForm();
+    if (this.user === 'admin') {
+      this.handBookForm.disable();
+    }
     this.loodLookups();
+
     this.handbookId = +this._route.snapshot.paramMap.get('id');
     if (this.handbookId)
       this.GetHandbook(+this.handbookId);
-    // this.getHandbook();
-    this.initForm();
-
-    if (this.user === 'admin') {
-      this.handBookForm.disable();
-
-    }
-
   }
   initForm() {
     this.handBookForm = this._fb.group({
@@ -118,8 +115,10 @@ export class EditComponent implements OnInit {
         this.imgSrc = this.imgSrc + res.image
         this.attachments = res.attachments
         this.ExtractFiles()
-        this.handBookForm.get('guidDate').setValue(new Date(res.guideDate));
-      },
+        this.handBookForm.patchValue(res);
+        this.handbook.guideDate=new Date(this.handbook.guideDate)
+        this.handBookForm.get('guideDate').setValue(formatDate(res.guideDate,'yyyy-MM-dd', 'en'));
+     },
       error => console.log(error)
     )
   }
