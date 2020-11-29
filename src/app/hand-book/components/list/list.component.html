@@ -1,3 +1,4 @@
+<div class="mainContent" *ngIf="handbooks?.data?.length>0" > 
 <div>
     <table class="table">
         <tr >
@@ -16,8 +17,6 @@
       
     </table>
 </div>
-
-
 <div>
 <ngb-pagination
 class="d-flex justify-content-center"
@@ -35,4 +34,11 @@ class="d-flex justify-content-center"
 <ng-template ngbPaginationEllipsis>...</ng-template>
 <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
 </ngb-pagination>
+</div>
+</div>
+
+<div *ngIf="handbooks?.data?.length ==0">
+    <div class="text-center">
+<span class="h5">{{'No Data Found' | translate}}</span>
+</div>
 </div>
