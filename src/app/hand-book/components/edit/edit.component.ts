@@ -65,7 +65,7 @@ export class EditComponent implements OnInit {
   }
   initForm() {
     this.handBookForm = this._fb.group({
-      title: ['', [Validators.required]],
+      title: ['', [Validators.required,Validators.pattern('^[^(0-9)]+$')]],
       countryId: ['', Validators.required],
       guideDate: ['', Validators.required],
       guideInfo: ['', [Validators.required, Validators.maxLength(250)]],

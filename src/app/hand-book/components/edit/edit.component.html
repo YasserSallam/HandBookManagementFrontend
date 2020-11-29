@@ -38,6 +38,8 @@
                 <div class="form-group">
                     <span class="h4"> {{'Title'| translate}} </span><span class="text-danger">*</span>
                     <input type="text"   class="form-control" formControlName="title">
+                    <small class="text-danger" [class.d-none]="handBookForm.get('title').untouched || handBookForm.get('title').valid ">
+                        {{'NonNumericTextOnly' | translate}}</small>
                 </div>
             </div>
 
