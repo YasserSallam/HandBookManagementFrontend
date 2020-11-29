@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
     });
   }
 login(){
-  debugger;
 let user:string=this.loginForm.get('userName').value;
   localStorage.setItem('user',user.toLowerCase());
 this._rouer.navigate(['/handbook']);

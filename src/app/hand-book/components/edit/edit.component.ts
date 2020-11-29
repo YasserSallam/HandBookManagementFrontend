@@ -51,7 +51,6 @@ export class EditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    debugger;
     this.today=formatDate(new Date(),'yyyy-MM-dd','en');
     this.user = localStorage.getItem('user');
     this.initForm();
